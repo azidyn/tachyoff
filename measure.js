@@ -36,7 +36,7 @@ const region = process.argv[2] || 'london';
 
 
         // transmit report to central server for collation, presentation
-        await reporting.report( reports );
+        await reporting.send( reports );
 
         // Wait a bit 
         await config.delay( config.globalcooloff );
