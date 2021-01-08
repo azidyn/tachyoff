@@ -16,5 +16,7 @@
   "bugs": {
     "url": "https://github.com/azidyn/tachyoff/issues"
   },
-  "homepage": "https://github.com/azidyn/tachyoff#readme"
+  "homepage": "https://github.com/azidyn/tachyoff#readme",
+  "dependencies": {
+  }
 }

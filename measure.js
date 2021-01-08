@@ -1,26 +1,36 @@
 
-
-const exchange = process.argv[2] || 'bitmex';
-const config = require('./config')
-const secret_reporting_api = require('./report');
-const api = require(`./exchange/${exchange}`);
+const config    = require('./config')
+const exchanges = require('./exchanges');
+const sample    = require('./sample');
 
 (async()=>{
 
-    setInterval( async () => {
+    // Sample all exchanges continuously
+    for ( ;; ) {
 
-        let result = await api.measure(); 
+        // Sample each exchange in turn
+        for ( const exchange in exchanges ) {
+            
+            const result = await sample( exchanges[ exchange ] );
 
-        let packet = {
-            exchange,
-            timestamp: Date.now(),
-            result
-        };
+            const n = Date.now();
 
-        secret_reporting_api.send( packet );
+            const report = {
+                epoch: n,
+                timestamp: (new Date( n )).toISOString(),
+                exchange,
+                result
+            }
 
-    }, config.frequency )
+            console.log( report );
+
+        }
 
 
+        // Wait a bit 
+        await config.delay( config.globalcooloff );
+
+    }
+    
 
 })();
