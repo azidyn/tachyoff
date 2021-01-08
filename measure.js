@@ -1,7 +1,7 @@
 
 
 const exchange = process.argv[2] || 'bitmex';
-const config = require('./config;')
+const config = require('./config')
 const secret_reporting_api = require('./report');
 const api = require(`./exchange/${exchange}`);
 
