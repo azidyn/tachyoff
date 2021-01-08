@@ -31,12 +31,12 @@ const region = process.argv[2] || 'london';
 
             console.log( report );
 
-            // reports.push( report );
+            reports.push( report );
         }
 
 
         // transmit report to central server for collation, presentation
-        await reporting.send( reports );
+        // await reporting.send( reports );
 
         // Wait a bit 
         await config.delay( config.globalcooloff );
