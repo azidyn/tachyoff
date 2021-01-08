@@ -2,7 +2,7 @@
 const config    = require('./config')
 const exchanges = require('./exchanges');
 const sample    = require('./sample');
-const reporting = require('./report');
+// const reporting = require('./report');
 
 // e.g. 'newyork', 'tokyo', 'singapore' whatever, pass on cmdline when booting script
 const region = process.argv[2] || 'london'; 
@@ -31,7 +31,7 @@ const region = process.argv[2] || 'london';
 
             console.log( report );
 
-            reports.push( report );
+            // reports.push( report );
         }
 
 
