@@ -17,6 +17,9 @@
     "url": "https://github.com/azidyn/tachyoff/issues"
   },
   "homepage": "https://github.com/azidyn/tachyoff#readme",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "shipit-cli": "^5.3.0",
+    "shipit-deploy": "^5.3.0"
   }
 }

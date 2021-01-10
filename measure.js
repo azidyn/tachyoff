@@ -2,7 +2,7 @@
 const config    = require('./config')
 const exchanges = require('./exchanges');
 const sample    = require('./sample');
-// const reporting = require('./report');
+const reporting = require('./report');
 
 // e.g. 'newyork', 'tokyo', 'singapore' whatever, pass on cmdline when booting script
 const region = process.argv[2] || 'london'; 
@@ -12,31 +12,31 @@ const region = process.argv[2] || 'london';
     // Sample all exchanges continuously
     for ( ;; ) {
 
-        let reports = [];
+        const results = [];
+        
+        // The sample 'window' for our exchanes
+        const epoch = Date.now();
+        const timestamp = ( new Date( epoch) ).toISOString();
+
 
         // Sample each exchange in turn
         for ( const exchange in exchanges ) {
-            
+
             const result = await sample( exchanges[ exchange ] );
 
-            const n = Date.now();
-
-            const report = {
+            results.push({
                 region,
-                epoch: n,
-                timestamp: (new Date( n )).toISOString(),
+                epoch, timestamp,
                 exchange,
                 result
-            }
+            });
 
-            console.log( report );
-
-            reports.push( report );
         }
 
-
         // transmit report to central server for collation, presentation
-        // await reporting.send( reports );
+        await reporting.send( results );
+
+        console.log(`Scan all: ${((Date.now() - epoch) / 1000).toFixed(1)}s`);
 
         // Wait a bit 
         await config.delay( config.globalcooloff );
