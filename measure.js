@@ -7,6 +7,8 @@ const reporting = require('./report');
 // e.g. 'newyork', 'tokyo', 'singapore' whatever, pass on cmdline when booting script
 const region = process.argv[2] || 'london'; 
 
+
+
 (async()=>{
 
     // Sample all exchanges continuously
@@ -36,7 +38,7 @@ const region = process.argv[2] || 'london';
         // transmit report to central server for collation, presentation
         await reporting.send( results );
 
-        console.log(`Scan all: ${((Date.now() - epoch) / 1000).toFixed(1)}s`);
+        // console.log(`Scan all: ${((Date.now() - epoch) / 1000).toFixed(1)}s`);
 
         // Wait a bit 
         await config.delay( config.globalcooloff );
