@@ -1,4 +1,3 @@
-[I'm an inline-style link](https://www.google.com)
 
 # Quick Development Guide for WebApps
 
