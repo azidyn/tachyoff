@@ -89,7 +89,7 @@ The Drone has a small piece of code that `POST`s the result to my Server in Lond
 
 Tools Used
 - Node
-- Express
+- [Express](https://expressjs.com/)
 - Express Compression
 
 I'm using Express to create an http server with a `POST` endpoint to receive the Drone data and a `GET` endpoint for the Client. Takes 1 min to setup.
@@ -154,10 +154,10 @@ I also keep an uncompressed version of the data for easy management each time it
 
 Tools Used
 
-- Vue.js
-- uPlot 
-- BootstrapVue
-- axios
+- [Vue.js](https://vuejs.org/)
+- [uPlot](https://github.com/leeoniya/uPlot)
+- [BootstrapVue](https://bootstrap-vue.org/)
+- [axios](https://github.com/axios/axios)
 
 Vue.js is awesome for building dynamic client UIs. The basic concepts are; you create 'components' and then assemble those components into a view or page. Components can be constructed from other components and/or they can be made of basic html. Each component is data driven so they have their own properties, strings, numbers, arrays whatever and they react automatically to changes in this data.
 
@@ -218,7 +218,7 @@ The core part of the application is just this:
 
 And the `reload()` method:
 
-```
+```js
 	// Ask server for latest data (JSON file)
         let res = await axios.get( config.endpoint );
 
@@ -240,7 +240,7 @@ And the `reload()` method:
 
 The data is organised by region and exchange, something like this:
 
-```
+```js
     data = {
       "london": {
         "ftx": [ 1,2,0,2,3,5 ],
@@ -261,7 +261,8 @@ The data is organised by region and exchange, something like this:
 
 Then we just have a `region` property which we bind to the region buttons here:
 
-< region buttons > 
+![buttons](https://raw.githubusercontent.com/azidyn/tachyoff/master/images/region-buttons.png "buttons")
+
 
 When a button is pressed we set `region = 'singapore'` and the uPlot component automatically updates itself with data from that region.
 
@@ -269,11 +270,11 @@ When a button is pressed we set `region = 'singapore'` and the uPlot component a
 I use BoostrapVue for quick layout and styling. It's just Boostrap but wrapped in Vue components, but it's really convenient and easy to get something nice looking up and running quickly.
 
 
-Putting it all together
+## Putting it all together
 
 Tools Used:
-	- nginx
-	- pm2 
+- [nginx](https://www.nginx.com/)
+- [pm2](https://pm2.keymetrics.io/docs/usage/quick-start/)
 
 I use Vultr.com for cloud hosting. For this latency project, I provision 3 VPS servers:
 
@@ -294,4 +295,6 @@ I use pm2 to run the latency Server and start it to liste on a specific port ngi
 `pm2 start server.js -- 3001`
 
 pm2 will automatically restart the server if it crashes. I also use it for starting the Drones in NY and singapore. 
+
+That's pretty much it, any questions hmu on twitter: @azidynamics
 
