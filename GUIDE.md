@@ -1,3 +1,4 @@
+[I'm an inline-style link](https://www.google.com)
 
 # Quick Development Guide for WebApps
 
@@ -44,7 +45,9 @@ Why do we need these three pieces?
 Identify each component's Critical Function AKA the bare minimum to make this a complete system
 
 **Client** must make a request to our Server to get the latest data then display it on the page or the browser console. We can just refresh the page to see updates for now.
+
 **Drone** must make a single request to one exchange, measure latency then write the result to our server
+
 **Server** must take the Drone's report and append it to a JSON file. Just return the JSON file when the Client asks for latest data
 
 If you get the above running, finishing the product is basically a formality of embellishing and swapping out these basic parts for advanced parts.
@@ -70,22 +73,24 @@ For each iteration of the loop we;
 
 	Transmit our 'results' to our server to store
 	Discard the results and repeat ad infinitum
-``
+```
 
 Takes about 20-30 seconds to complete each time. Are there better ways to do this? Yes. But will this do? Also yes.
 
-I use the standard `request` package to measure latency. When making the request you can pass the `time: true` option and it will return fairly detailed measurements about each stage of the request: https://github.com/request/request#requestoptions-callback
+I use the standard `request` package to measure latency. When making the request you can pass the `time: true` option and it will return fairly detailed measurements about each stage of the request: (https://github.com/request/request#requestoptions-callback)
+
 
 For a good test, I picked the endpoints that return a portion of the live orderbook. Why this? Heavy traffic websites typically have layers of very aggressive caching to reduce internal load. Sometimes this caching may just be for a few seconds but it can give us the wrong impression about current performance. A request for an orderbook plunges your fist deep into the exchange's guts and they cannot cache this data. It's likely a true test.
 
 The Drone has a small piece of code that `POST`s the result to my Server in London. For security, the London server rejects data from any source other than the IP addresses of my Drones.
 
-The Server
+
+### The Server
 
 Tools Used
-	- Node
-	- Express
-	- Express Compression
+- Node
+- Express
+- Express Compression
 
 I'm using Express to create an http server with a `POST` endpoint to receive the Drone data and a `GET` endpoint for the Client. Takes 1 min to setup.
 
@@ -145,14 +150,14 @@ This JSON file can grow too big for the Client to handle, I don't want a 10 MB J
 
 I also keep an uncompressed version of the data for easy management each time it's appended.
 
-The Client
+### The Client
 
 Tools Used
 
-	- Vue.js
-	- uPlot 
-	- BootstrapVue
- 	- axios
+- Vue.js
+- uPlot 
+- BootstrapVue
+- axios
 
 Vue.js is awesome for building dynamic client UIs. The basic concepts are; you create 'components' and then assemble those components into a view or page. Components can be constructed from other components and/or they can be made of basic html. Each component is data driven so they have their own properties, strings, numbers, arrays whatever and they react automatically to changes in this data.
 
