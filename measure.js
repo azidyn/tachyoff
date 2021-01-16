@@ -35,8 +35,10 @@ console.log(`reegion=${region}`);
 
         }
 
+        console.log( results )
+
         // transmit report to central server for collation, presentation
-        await reporting.send( results );
+        // await reporting.send( results );
 
         // console.log(`Scan all: ${((Date.now() - epoch) / 1000).toFixed(1)}s`);
 

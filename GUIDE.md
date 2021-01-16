@@ -1,6 +1,4 @@
 
-Test
-
 "A problem shared is a problem halved"
 
 But if I may; a problem recursively subdivided is software engineering.
@@ -88,14 +86,46 @@ We can always swap this part out later. Don't use a sledgehammer to crack a nut.
 
 Here's what the Drone sends to the Server after testing each exchange, it's an array of these:
 
-```
-{ drone packet } 
+```js
+{ region: 'london',
+    epoch: 1610792400130,
+    timestamp: '2021-01-16T10:20:00.130Z',
+    exchange: 'bitmex',
+    result:
+     { samples: 3,
+       errors: 0,
+       failed: false,
+       roundtrip: 104.91246666666659 } }
 ```
 
 Upon receipt of `POST` data from the Drone, load the JSON file, add to the list and then trim the list to a given maximum. Can do this by time or by number of results. Then write the trimmed list back to disk/store:
 
-```
-{ post endpoint }
+```js
+app.post('/report', (req, res) => {
+
+    // Get the attached reports
+    let reports = req.body;
+
+    // Get the current 'database' (a json file)
+    let db = util.getjson( config.db );
+
+    // Add the new reports to the existing
+    db = db.concat( reports );
+
+    // // Trim reports older than 2hrs
+    const earliest = Date.now() - config.max;
+    db = db.filter( f => f.epoch >= earliest );
+
+    // Re-write the fresh database
+    fs.writeFileSync( config.db, JSON.stringify( db ));
+
+    // Re-write the compressed version ( for serving to client, -87% reduction in size, before express gzip )
+    fs.writeFileSync( config.dbc, JSON.stringify( compress( db ) ));
+
+    // Tell caller all good
+    res.status( 200 ).send('ok');
+
+});
 ```
 
 This JSON file can grow too big for the Client to handle, I don't want a 10 MB JSON file being downloaded by 100+ users visiting the website each time (bandwidth cost, user experience) so I'm using two stages of compression:
