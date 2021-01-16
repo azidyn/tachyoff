@@ -1,5 +1,6 @@
 
 # Quick Development Guide for WebApps
+by [Azimuth Dynamics on Twitter](https://twitter.com/azidynamics)
 
 _"A problem shared is a problem halved"_
 
@@ -10,7 +11,7 @@ Taking the latency tool I wrote as an example (https://latency.azidyn.com) we'll
 ## Step 1
 Clearly define the problem and state goals. Important for not losing track during dev. Takes 5-10 minutes to do this and saves hours of tangential meandering.
 
-Problem & Goals:
+### Problem & Goals
 We want a web-based tool/app to measure, display and compare the response latency from trading exchanges. Ideally, we'd like to display this data visually and keep a record of some history. We'd also like to measure from different geographic regions and see how that stacks up too.
 
 ![app](https://raw.githubusercontent.com/azidyn/tachyoff/master/images/latency-shot.png "Application")
@@ -289,7 +290,7 @@ What this means is; in my Vultr control panel where I manage the DNS for my doma
 
 If you've never set this up, it sounds more complicated than it is.
 
-I use pm2 to run the latency Server and start it to liste on a specific port nginx is configured to route the traffic to. In this case 3001.
+I use pm2 to run the latency Server and start it to listen on a specific port nginx is configured to route the traffic to. In this case 3001.
 
 `pm2 start server.js -- 3001`
 
