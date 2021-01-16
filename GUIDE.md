@@ -275,6 +275,7 @@ I use BoostrapVue for quick layout and styling. It's just Boostrap but wrapped i
 Tools Used:
 - [nginx](https://www.nginx.com/)
 - [pm2](https://pm2.keymetrics.io/docs/usage/quick-start/)
+- [shipit](https://github.com/shipitjs/shipit)
 
 I use Vultr.com for cloud hosting. For this latency project, I provision 3 VPS servers:
 
@@ -289,6 +290,10 @@ The physical London server hosts several apps and websites so I use nginx as a r
 What this means is; in my Vultr control panel where I manage the DNS for my domain `azidyn.com` I can add a subdomain e.g. `latency.` When someone connects to that full address the request is pushed onto my physical london server and picked up by nginx which is configured to look for this `latency` subdomain and route its traffic internally to the right project/software Server.
 
 If you've never set this up, it sounds more complicated than it is.
+
+I use shipitjs to deploy the Client, Server and Drone onto my servers. It's really simple and basically just links to your github repo and copies the files and performs installation of npm packages.
+
+`npx shipit londonserver deploy`
 
 I use pm2 to run the latency Server and start it to listen on a specific port nginx is configured to route the traffic to. In this case 3001.
 
