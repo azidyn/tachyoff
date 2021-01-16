@@ -22,11 +22,11 @@ Break the problem into macro components
 
 I identify three;
 
-1. "Client": A website thing that display our measurements visually to the user
+1. __Client__: A website thing that display our measurements visually to the user
 
-2. "Drone": A very simple program that runs in the background somewhere which continually makes http requests to exchanges and makes a note of the response latency for each
+2. __Drone__: A very simple program that runs in the background somewhere which continually makes http requests to exchanges and makes a note of the response latency for each
 
-3. "Server(s)": To do two things: 1) Collect, store and serve the data measured from above and 2) serve the website/app (in many cases this is just an html file, javascript, images etc. and the least complicated part of this)
+3. __Server(s)__: To do two things: 1) Collect, store and serve the data measured from above and 2) serve the website/app (in many cases this is just an html file, javascript, images etc. and the least complicated part of this)
 
 Why do we need these three pieces?
 
@@ -39,13 +39,13 @@ Why do we need these three pieces?
 ![arch](https://raw.githubusercontent.com/azidyn/tachyoff/master/images/latency-arch-digram.png "Architecture")
 
 
-Step 3. Identify each component's Critical Function AKA the bare minimum to make this a complete system
+## Step 3. 
 
-**Client**: must make a request to our Server to get the latest data then display it on the page or the browser console. We can just refresh the page to see updates for now.
+Identify each component's Critical Function AKA the bare minimum to make this a complete system
 
-**Drone**: must make a single request to one exchange, measure latency then write the result to our server
-
-**Server**: must take the Drone's report and append it to a JSON file. Just return the JSON file when the Client asks for latest data
+**Client** must make a request to our Server to get the latest data then display it on the page or the browser console. We can just refresh the page to see updates for now.
+**Drone** must make a single request to one exchange, measure latency then write the result to our server
+**Server** must take the Drone's report and append it to a JSON file. Just return the JSON file when the Client asks for latest data
 
 If you get the above running, finishing the product is basically a formality of embellishing and swapping out these basic parts for advanced parts.
 
