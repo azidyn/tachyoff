@@ -29,7 +29,8 @@ Why do we need these three pieces?
 - We want our "Drone" to measure from specific and consistent geo locations anyway; not wherever the user is browsing from.
 
 
-< System Diagram >
+
+![alt text](https://raw.githubusercontent.com/azidyn/tachyoff/master/images/latency-arch-digram.png "Logo Title Text 1")
 
 
 Step 3. Identify each component's Critical Function AKA the bare minimum to make this a complete system
