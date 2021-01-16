@@ -7,7 +7,7 @@ const reporting = require('./report');
 // e.g. 'newyork', 'tokyo', 'singapore' whatever, pass on cmdline when booting script
 const region = process.argv[2] || 'london'; 
 
-
+console.log(`reegion=${region}`);
 
 (async()=>{
 
