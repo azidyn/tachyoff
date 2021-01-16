@@ -190,7 +190,7 @@ Here's the component template:
 </template>
 ```
 
-The Vue component has "props" passed to it from the core part of the application that contain the latency measurements. When this prop data is updated, the uPlot chart automatically redraws itself with the latest data
+The uPlot wrapped component has "props" passed to it from the core part of the application that contain the latency measurements. When this prop data is updated, the uPlot chart automatically redraws itself with the latest data
 
 
 ```js
