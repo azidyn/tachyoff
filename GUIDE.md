@@ -298,3 +298,6 @@ pm2 will automatically restart the server if it crashes. I also use it for start
 
 That's pretty much it, any questions hmu on twitter: @azidynamics
 
+## Addendum
+Suggested improvement; instead of testing each exchange in turn, test each simultaneously to more accurately portray the network effect of volatile market activity across the exchanges
+
