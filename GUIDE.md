@@ -1,26 +1,32 @@
 
-"A problem shared is a problem halved"
+# Quick Development Guide for WebApps
 
-But if I may; a problem recursively subdivided is software engineering.
+_"A problem shared is a problem halved"_
+
+But if I may; _a problem recursively subdivided is software engineering_
 
 Taking the latency tool I wrote as an example (https://latency.azidyn.com) we'll go through step by step how to build something like this in a hurry.
 
-Step 1: Clearly define the problem and state goals. Important for not losing track during dev. Takes 5-10 minutes to do this and saves hours of tangential meandering.
+## Step 1
+Clearly define the problem and state goals. Important for not losing track during dev. Takes 5-10 minutes to do this and saves hours of tangential meandering.
 
 Problem & Goals:
 We want a web-based tool/app to measure, display and compare the response latency from trading exchanges. Ideally, we'd like to display this data visually and keep a record of some history. We'd also like to measure from different geographic regions and see how that stacks up too.
 
-<screenshot of latency app>
+![app](https://raw.githubusercontent.com/azidyn/tachyoff/master/images/latency-shot.png "Application")
 
-Step 2. Break the problem into macro components
+
+## Step 2.
+
+Break the problem into macro components
 
 I identify three;
 
-- "Client": A website thing that display our measurements visually to the user
+1. "Client": A website thing that display our measurements visually to the user
 
-- "Drone": A very simple program that runs in the background somewhere which continually makes http requests to exchanges and makes a note of the response latency for each
+2. "Drone": A very simple program that runs in the background somewhere which continually makes http requests to exchanges and makes a note of the response latency for each
 
-- "Server(s)": To do two things: 1) Collect, store and serve the data measured from above and 2) serve the website/app (in many cases this is just an html file, javascript, images etc. and the least complicated part of this)
+3. "Server(s)": To do two things: 1) Collect, store and serve the data measured from above and 2) serve the website/app (in many cases this is just an html file, javascript, images etc. and the least complicated part of this)
 
 Why do we need these three pieces?
 
@@ -30,39 +36,41 @@ Why do we need these three pieces?
 
 
 
-![alt text](https://raw.githubusercontent.com/azidyn/tachyoff/master/images/latency-arch-digram.png "Logo Title Text 1")
+![arch](https://raw.githubusercontent.com/azidyn/tachyoff/master/images/latency-arch-digram.png "Architecture")
 
 
 Step 3. Identify each component's Critical Function AKA the bare minimum to make this a complete system
 
-"Client": must make a request to our Server to get the latest data then display it on the page or the browser console. We can just refresh the page to see updates for now.
+**Client**: must make a request to our Server to get the latest data then display it on the page or the browser console. We can just refresh the page to see updates for now.
 
-"Drone": must make a single request to one exchange, measure latency then write the result to our server
+**Drone**: must make a single request to one exchange, measure latency then write the result to our server
 
-"Server": must take the Drone's report and append it to a JSON file. Just return the JSON file when the Client asks for latest data
+**Server**: must take the Drone's report and append it to a JSON file. Just return the JSON file when the Client asks for latest data
 
 If you get the above running, finishing the product is basically a formality of embellishing and swapping out these basic parts for advanced parts.
 
-Step 4: build
+## Step 4
 
-The Drone
+Build.
+
+### The Drone
 
 Alright let's get going, code here: https://github.com/azidyn/tachyoff
 
 Very simple, here's what it does. I have a list of public endpoints (`exchanges.js`) for all the major exchanges. Endpoints just means urls you send or receive data from.
 
 The complete code is an infinite loop.
-
+```
 For each iteration of the loop we;
-	Start with a blank list of `results`
-	Measure the latency from exchange_A => add to the `results`
-	Measure the latency from exchange_B => add to the `results
+	Start with a blank list of 'results'
+	Measure the latency from exchange_A => add to the 'results'
+	Measure the latency from exchange_B => add to the 'results'
 	...
-	Measure the latency from exchange_Z => add to the `results`
+	Measure the latency from exchange_Z => add to the 'results'
 
-	Transmit our `results` to our server to store
+	Transmit our 'results' to our server to store
 	Discard the results and repeat ad infinitum
-
+``
 
 Takes about 20-30 seconds to complete each time. Are there better ways to do this? Yes. But will this do? Also yes.
 
